@@ -40,6 +40,7 @@ public class CommandManager {
         commands.put("mark", TaskController::markTask);
         commands.put("delete", TaskController::deleteTask);
         commands.put("exit", args -> exit());
+        commands.put("help", args -> printHelp());
     }
 
     private static void exit() {
@@ -51,5 +52,19 @@ public class CommandManager {
         Consumer<String[]> action = commands.get(command);
         if (action == null) throw new CommandNotFoundException("Error: El comando no existe: " + command);
         action.accept(complement);
+    }
+
+    private static void printHelp() {
+        System.out.println("""
+                Comandos disponibles:
+                add <descripción>               -> Registrar tarea.
+                update <id> <nueva descripción> -> Actualizar tarea.
+                delete <id>                     -> Eliminar tarea.
+                list <estado>                   -> Listar todas las tareas o por estado (done, todo, in-progress).
+                mark <id> <estado>              -> Marcar tarea (done, todo, in-progress).
+                help                            -> Ver información de comandos.
+                exit                            -> Salir.
+                """
+        );
     }
 }
