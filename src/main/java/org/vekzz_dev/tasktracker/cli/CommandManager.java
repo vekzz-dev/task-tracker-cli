@@ -39,6 +39,12 @@ public class CommandManager {
         commands.put("update", TaskController::updateTask);
         commands.put("mark", TaskController::markTask);
         commands.put("delete", TaskController::deleteTask);
+        commands.put("exit", args -> exit());
+    }
+
+    private static void exit() {
+        System.out.println("Saliendo...");
+        System.exit(0);
     }
 
     private static void executeCommand(String command, String[] complement) {
