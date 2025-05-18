@@ -1,6 +1,7 @@
 package org.vekzz_dev.tasktracker.cli;
 
 import org.vekzz_dev.tasktracker.controller.TaskController;
+import org.vekzz_dev.tasktracker.exception.CommandNotFoundException;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -24,6 +25,11 @@ public class CommandManager {
             String[] parts = input.split("\\s+");
             String cmd = parts[0].toLowerCase();
             String[] complement = Arrays.copyOfRange(parts, 1, parts.length);
+            try {
+                executeCommand(cmd, complement);
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -33,5 +39,11 @@ public class CommandManager {
         commands.put("update", TaskController::updateTask);
         commands.put("mark", TaskController::markTask);
         commands.put("delete", TaskController::deleteTask);
+    }
+
+    private static void executeCommand(String command, String[] complement) {
+        Consumer<String[]> action = commands.get(command);
+        if (action == null) throw new CommandNotFoundException("Error: El comando no existe: " + command);
+        action.accept(complement);
     }
 }
