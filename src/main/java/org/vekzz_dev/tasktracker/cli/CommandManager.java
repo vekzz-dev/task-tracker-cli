@@ -16,7 +16,7 @@ public class CommandManager {
         loadCommands();
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.print("Task-Tracker >");
+            System.out.print("task-tracker>> ");
             String input = scanner.nextLine();
             if (input.isEmpty()) {
                 System.out.println("No se proporcionó ningún comando");
