@@ -26,12 +26,11 @@ public class TaskController {
     public static void deleteTask(String[] args) {
     }
 
-    public static boolean isNumberOfArgsCorrect(String[] args, String action) {
+    private static void isNumberOfArgsCorrect(String[] args, String action) {
         int[] range = expectedArgsByCommand.get(action);
         int argCount = args.length;
         int min = range[0];
         int max = range[1];
-        if (range == null) throw new IllegalStateException("Acción desconocida: " + action);
         if (argCount < min || argCount > max) {
             String rangeMsg = (min == max)
                     ? min + " argumento(s)"
@@ -39,6 +38,5 @@ public class TaskController {
             throw new IllegalArgumentException("El comando '" + action + "' requiere " +
                     rangeMsg + " , pero se recibieron " + args.length + ".");
         }
-        return true;
     }
 }
