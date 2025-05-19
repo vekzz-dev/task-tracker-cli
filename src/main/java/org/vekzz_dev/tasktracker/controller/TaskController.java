@@ -11,22 +11,22 @@ public class TaskController {
             "list", new int[]{0, 1}
     );
 
-    public static void addTask(String[] args) {
+    public void addTask(String[] args) {
     }
 
-    public static void updateTask(String[] args) {
+    public void updateTask(String[] args) {
     }
 
-    public static void listTask(String[] args) {
+    public void listTask(String[] args) {
     }
 
-    public static void markTask(String[] args) {
+    public void markTask(String[] args) {
     }
 
-    public static void deleteTask(String[] args) {
+    public void deleteTask(String[] args) {
     }
 
-    private static void isNumberOfArgsCorrect(String[] args, String action) {
+    private void isNumberOfArgsCorrect(String[] args, String action) {
         int[] range = expectedArgsByCommand.get(action);
         int argCount = args.length;
         int min = range[0];
