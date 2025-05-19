@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 public class CommandManager {
     private static final Map<String, Consumer<String[]>> commands = new HashMap<>();
 
-    public static void main(String[] args) {
+    public void run() {
         loadCommands();
         Scanner scanner = new Scanner(System.in);
         while (true) {
