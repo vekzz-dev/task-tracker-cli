@@ -10,7 +10,13 @@ import java.util.Scanner;
 import java.util.function.Consumer;
 
 public class CommandManager {
+    private final TaskController controller;
+
     private static final Map<String, Consumer<String[]>> commands = new HashMap<>();
+
+    public CommandManager(TaskController controller) {
+        this.controller = controller;
+    }
 
     public void run() {
         loadCommands();
