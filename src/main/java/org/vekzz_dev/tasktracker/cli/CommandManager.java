@@ -39,12 +39,12 @@ public class CommandManager {
         }
     }
 
-    private static void loadCommands() {
-        commands.put("add", TaskController::addTask);
-        commands.put("list", TaskController::listTask);
-        commands.put("update", TaskController::updateTask);
-        commands.put("mark", TaskController::markTask);
-        commands.put("delete", TaskController::deleteTask);
+    private void loadCommands() {
+        commands.put("add", controller::addTask);
+        commands.put("list", controller::listTask);
+        commands.put("update", controller::updateTask);
+        commands.put("mark", controller::markTask);
+        commands.put("delete", controller::deleteTask);
         commands.put("exit", args -> exit());
         commands.put("help", args -> printHelp());
     }
