@@ -49,18 +49,18 @@ public class CommandManager {
         commands.put("help", args -> printHelp());
     }
 
-    private static void exit() {
+    private void exit() {
         System.out.println("Saliendo...");
         System.exit(0);
     }
 
-    private static void executeCommand(String command, String[] complement) {
+    private void executeCommand(String command, String[] complement) {
         Consumer<String[]> action = commands.get(command);
         if (action == null) throw new CommandNotFoundException("Error: El comando no existe: " + command);
         action.accept(complement);
     }
 
-    private static void printHelp() {
+    private void printHelp() {
         System.out.println("""
                 Comandos disponibles:
                 add <descripción>               -> Registrar tarea.
