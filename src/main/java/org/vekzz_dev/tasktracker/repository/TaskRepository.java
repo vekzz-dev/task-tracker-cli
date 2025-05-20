@@ -5,7 +5,7 @@ import org.vekzz_dev.tasktracker.model.Task;
 import java.util.List;
 
 public interface TaskRepository {
-    void save(Task task);
+    void save(List<Task> taskList);
 
     List<Task> findAll();
 }
