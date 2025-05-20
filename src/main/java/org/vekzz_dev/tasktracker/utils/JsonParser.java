@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class JsonParser {
-    private String serialize(Task t) {
+    private static String serialize(Task t) {
         StringBuilder sbObject = new StringBuilder();
         sbObject.append("{\"").append("id").append("\":\"").append(t.getId()).append("\"");
         sbObject.append(",\"").append("description").append("\":\"").append(t.getDescription()).append("\"");
@@ -19,7 +19,7 @@ public class JsonParser {
         return sbObject.toString();
     }
 
-    private List<List<String>> deserialize(String jsonString) {
+    private static List<List<String>> deserialize(String jsonString) {
         jsonString = jsonString.substring(1, jsonString.length() - 1);
         String[] jsonObject = jsonString.split("},");
         return Arrays.stream(jsonObject)
@@ -31,17 +31,17 @@ public class JsonParser {
                 ).toList();
     }
 
-    public String convertToJson(List<Task> taskList) {
+    public static String convertToJson(List<Task> taskList) {
         StringBuilder sbList = new StringBuilder();
         sbList.append("[");
         sbList.append(taskList.stream()
-                .map(this::serialize)
+                .map(JsonParser::serialize)
                 .collect(Collectors.joining(",")));
         sbList.append("]");
         return sbList.toString();
     }
 
-    public List<Task> convertToTaskList(String jsonString) {
+    public static List<Task> convertToTaskList(String jsonString) {
         return deserialize(jsonString).stream()
                 .map(v -> {
                     int id = Integer.parseInt(v.getFirst());

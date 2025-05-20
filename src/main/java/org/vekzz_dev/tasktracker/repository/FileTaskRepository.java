@@ -13,10 +13,8 @@ public class FileTaskRepository implements TaskRepository {
     private static final String HOME = System.getProperty("user.home");
     private static final Path DATA = Paths.get(HOME, "task-tracker", "data.json");
     private final File file;
-    private final JsonParser parser;
 
-    public FileTaskRepository(JsonParser parser) {
-        this.parser = parser;
+    public FileTaskRepository() {
         this.file = DATA.toFile();
         FileUtils.ensureFileExists(file);
     }
@@ -24,7 +22,7 @@ public class FileTaskRepository implements TaskRepository {
     @Override
     public void save(List<Task> taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            writer.write(parser.convertToJson(taskList));
+            writer.write(JsonParser.convertToJson(taskList));
         } catch (IOException e) {
             throw new RuntimeException("Error al guardar los datos: " + e.getMessage());
         }
@@ -41,6 +39,6 @@ public class FileTaskRepository implements TaskRepository {
         } catch (IOException e) {
             throw new RuntimeException("Error al leer los datos: " + e.getMessage());
         }
-        return parser.convertToTaskList(builder.toString());
+        return JsonParser.convertToTaskList(builder.toString());
     }
 }
