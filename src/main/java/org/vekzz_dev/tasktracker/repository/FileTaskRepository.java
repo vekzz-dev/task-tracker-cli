@@ -1,6 +1,7 @@
 package org.vekzz_dev.tasktracker.repository;
 
 import org.vekzz_dev.tasktracker.model.Task;
+import org.vekzz_dev.tasktracker.utils.FileUtils;
 import org.vekzz_dev.tasktracker.utils.JsonParser;
 
 import java.io.*;
@@ -17,7 +18,7 @@ public class FileTaskRepository implements TaskRepository {
     public FileTaskRepository(JsonParser parser) {
         this.parser = parser;
         this.file = DATA.toFile();
-        ensureFileExists(file);
+        FileUtils.ensureFileExists(file);
     }
 
     @Override
@@ -41,19 +42,5 @@ public class FileTaskRepository implements TaskRepository {
             throw new RuntimeException("Error al leer los datos: " + e.getMessage());
         }
         return parser.convertToTaskList(builder.toString());
-    }
-
-    private void ensureFileExists(File file) {
-        try {
-            File parentDir = file.getParentFile();
-            if (parentDir != null && !parentDir.exists()) {
-                if (!parentDir.mkdirs()) throw new IOException("No se pudo crear el directorio: " + parentDir);
-            }
-            if (!file.exists()) {
-                if (!file.createNewFile()) throw new IOException("No se pudo crear el archivo: " + file);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Error al crear el archivo: " + e.getMessage());
-        }
     }
 }
