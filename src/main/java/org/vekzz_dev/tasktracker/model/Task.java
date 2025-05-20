@@ -9,7 +9,7 @@ public class Task {
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Task(int id, String description, LocalDateTime createdAt, Status status, LocalDateTime updatedAt) {
+    public Task(int id, String description, Status status, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.description = description;
         this.createdAt = createdAt;
@@ -44,7 +44,7 @@ public class Task {
     @Override
     public String toString() {
         return id +
-                " - desc='" + description + '\'' +
+                " - description='" + description + '\'' +
                 ", status=" + status +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt;
