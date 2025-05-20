@@ -17,6 +17,14 @@ public class Task {
         this.updatedAt = updatedAt;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
     public Status getStatus() {
         return status;
     }
