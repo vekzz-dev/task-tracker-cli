@@ -8,7 +8,7 @@ public class TaskController {
     private final TaskService service;
 
     private static final Map<String, int[]> expectedArgsByCommand = Map.of(
-            "add", new int[]{2, 2},
+            "add", new int[]{1, 1},
             "update", new int[]{2, 2},
             "delete", new int[]{1, 1},
             "mark", new int[]{2, 2},
