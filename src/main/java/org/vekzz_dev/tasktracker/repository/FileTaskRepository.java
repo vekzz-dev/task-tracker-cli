@@ -24,7 +24,7 @@ public class FileTaskRepository implements TaskRepository {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(JsonParser.convertToJson(taskList));
         } catch (IOException e) {
-            throw new RuntimeException("Error al guardar los datos: " + e.getMessage());
+            throw new RuntimeException("Error when saving data: " + e.getMessage());
         }
     }
 
@@ -37,7 +37,7 @@ public class FileTaskRepository implements TaskRepository {
                 builder.append(line);
             }
         } catch (IOException e) {
-            throw new RuntimeException("Error al leer los datos: " + e.getMessage());
+            throw new RuntimeException("Error when reading data: " + e.getMessage());
         }
         return JsonParser.convertToTaskList(builder.toString());
     }

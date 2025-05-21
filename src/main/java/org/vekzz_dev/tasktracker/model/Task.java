@@ -52,11 +52,11 @@ public class Task {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
         return id +
                 " -> " + description +
                 " (" + status.getDescription() + ")" +
-                " - creado el: " + createdAt.format(formatter) +
-                " - actualizado el: " + updatedAt.format(formatter) + ".";
+                " - created on " + createdAt.format(formatter) +
+                " - updated on: " + updatedAt.format(formatter) + ".";
     }
 }

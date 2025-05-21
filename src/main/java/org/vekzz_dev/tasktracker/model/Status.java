@@ -1,9 +1,9 @@
 package org.vekzz_dev.tasktracker.model;
 
 public enum Status {
-    DONE("hecho ✅"),
-    TODO("pendiente 🟦"),
-    IN_PROGRESS("en progreso 🟠");
+    DONE("done ✅"),
+    TODO("to-do 🟦"),
+    IN_PROGRESS("in progress 🟠");
 
     private final String description;
 

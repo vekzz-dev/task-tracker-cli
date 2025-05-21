@@ -31,7 +31,7 @@ public class TaskController {
         isNumberOfArgsCorrect(args, "add");
         String description = args[0];
         int id = service.add(description);
-        view.showMessage("Tarea agregada correctamente (ID: " + id + ")");
+        view.showMessage("Task successfully added (ID: " + id + ")");
     }
 
     public void updateTask(String[] args) {
@@ -39,18 +39,18 @@ public class TaskController {
         int id = parseId(args[0]);
         String description = args[1];
         service.update(id, description);
-        view.showMessage("Tarea actualizada correctamente (ID: " + id + ")");
+        view.showMessage("Task successfully updated (ID: " + id + ")");
     }
 
     public void listTask(String[] args) {
         isNumberOfArgsCorrect(args, "list");
         if (args.length == 0) {
-            view.showMessage("Mostrando todas las tareas: ");
+            view.showMessage("Showing all tasks: ");
             view.showTasks(service.list(""));
         } else {
             String statusKey = args[0].toLowerCase();
             String status = validateStatus(statusKey);
-            view.showMessage("Mostrando las tareas con estado: " + statusKey);
+            view.showMessage("Showing tasks with status: " + statusKey);
             view.showTasks(service.list(status));
         }
     }
@@ -60,14 +60,14 @@ public class TaskController {
         int id = parseId(args[0]);
         String status = validateStatus(args[1]);
         service.mark(id, status);
-        view.showMessage("Tarea marcada correctamente (ID: " + id + ")");
+        view.showMessage("Task marked correctly (ID: " + id + ")");
     }
 
     public void deleteTask(String[] args) {
         isNumberOfArgsCorrect(args, "delete");
         int id = parseId(args[0]);
         service.delete(id);
-        view.showMessage("Tarea eliminada correctamente (ID: " + id + ")");
+        view.showMessage("Task successfully removed (ID: " + id + ")");
     }
 
     private void isNumberOfArgsCorrect(String[] args, String action) {
@@ -77,10 +77,10 @@ public class TaskController {
         int max = range[1];
         if (argCount < min || argCount > max) {
             String rangeMsg = (min == max)
-                    ? min + " argumento(s)"
-                    : "entre " + min + " y " + max + " argumento(s)";
-            throw new IllegalArgumentException("El comando '" + action + "' requiere " +
-                    rangeMsg + " , pero se recibieron " + args.length + ".");
+                    ? min + " argument(s)"
+                    : "between " + min + " and " + max + " argument(s)";
+            throw new IllegalArgumentException("The command '" + action + "' requires " +
+                    rangeMsg + ", but received " + args.length + ".");
         }
     }
 
@@ -88,15 +88,15 @@ public class TaskController {
         try {
             return Integer.parseInt(idArg);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Error: el ID debe ser un número entero válido, " +
-                    "recibido: " + idArg);
+            throw new IllegalArgumentException("Error: The ID must be a valid integer number, " +
+                    "received: " + idArg);
         }
     }
 
     private String validateStatus(String statusArg) {
         String status = statusStringMap.get(statusArg.toLowerCase());
-        if (status == null) throw new IllegalArgumentException("Error: el estado '" + statusArg
-                + "' no es válido. Estados válidos: "
+        if (status == null) throw new IllegalArgumentException("Error: The status '" + statusArg
+                + "' is not valid. Valid status: "
                 + statusStringMap.keySet());
         return status;
     }

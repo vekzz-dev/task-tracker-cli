@@ -29,7 +29,7 @@ public class FileIdRepository implements IdRepository {
                 new BufferedOutputStream(new FileOutputStream(file)))) {
             dataOutput.writeInt(id);
         } catch (IOException e) {
-            throw new RuntimeException("Error al guardar el id: " + e.getMessage());
+            throw new RuntimeException("Error when saving the id: " + e.getMessage());
         }
     }
 
@@ -39,7 +39,7 @@ public class FileIdRepository implements IdRepository {
                 new BufferedInputStream(new FileInputStream(file)))) {
             return dataInput.readInt();
         } catch (IOException e) {
-            throw new RuntimeException("Error al leer el id: " + e.getMessage());
+            throw new RuntimeException("Error when reading the id: " + e.getMessage());
         }
     }
 }

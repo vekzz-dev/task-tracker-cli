@@ -49,7 +49,7 @@ public class TaskService {
         return taskList.stream()
                 .filter(t -> t.getId() == id)
                 .findAny()
-                .orElseThrow(() -> new RuntimeException("No se encontró la tarea con id: " + id));
+                .orElseThrow(() -> new RuntimeException("The task was not found with id: " + id));
     }
 
     public void mark(int id, String status) {

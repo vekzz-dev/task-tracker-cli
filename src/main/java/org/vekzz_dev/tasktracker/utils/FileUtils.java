@@ -8,13 +8,13 @@ public class FileUtils {
         try {
             File parentDir = file.getParentFile();
             if (parentDir != null && !parentDir.exists()) {
-                if (!parentDir.mkdirs()) throw new IOException("No se pudo crear el directorio: " + parentDir);
+                if (!parentDir.mkdirs()) throw new IOException("The directory could not be created: " + parentDir);
             }
             if (!file.exists()) {
-                if (!file.createNewFile()) throw new IOException("No se pudo crear el archivo: " + file);
+                if (!file.createNewFile()) throw new IOException("The file could not be created: " + file);
             }
         } catch (IOException e) {
-            throw new RuntimeException("Error al crear el archivo: " + e.getMessage());
+            throw new RuntimeException("Error creating the file: " + e.getMessage());
         }
     }
 }

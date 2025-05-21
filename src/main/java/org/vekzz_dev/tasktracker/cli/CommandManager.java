@@ -24,13 +24,13 @@ public class CommandManager {
             System.out.print("task-tracker>> ");
             String input = scanner.nextLine().trim();
             if (input.isEmpty()) {
-                System.out.println("No se proporcionó ningún comando");
+                System.out.println("No command was provided.");
                 continue;
             }
 
             String[] parts = parseArgs(input);
             if (parts.length == 0) {
-                System.out.println("No se pudo analizar el comando");
+                System.out.println("The command could not be parsed.");
                 continue;
             }
             String cmd = parts[0].toLowerCase();
@@ -54,7 +54,7 @@ public class CommandManager {
     }
 
     private void exit() {
-        System.out.println("Saliendo...");
+        System.out.println("Leaving...");
         System.exit(0);
     }
 
@@ -73,20 +73,20 @@ public class CommandManager {
 
     private void executeCommand(String command, String[] complement) {
         Consumer<String[]> action = commands.get(command);
-        if (action == null) throw new CommandNotFoundException("Error: El comando no existe: " + command);
+        if (action == null) throw new CommandNotFoundException("Error the command does not exist: " + command + ".");
         action.accept(complement);
     }
 
     private void printHelp() {
         System.out.println("""
-                Comandos disponibles:
-                add <descripción>               -> Registrar tarea.
-                update <id> <nueva descripción> -> Actualizar tarea.
-                delete <id>                     -> Eliminar tarea.
-                list <estado>                   -> Listar todas las tareas o por estado (done, todo, in-progress).
-                mark <id> <estado>              -> Marcar tarea (done, todo, in-progress).
-                help                            -> Ver información de comandos.
-                exit                            -> Salir.
+                Available commands:
+                add <description>               -> Add new task.
+                update <id> <new description>   -> Update existing task.
+                delete <id>                     -> Delete task.
+                list <status>                   -> List all tasks or by status (done, todo, in-progress).
+                mark <id> <status>              -> Mark task (done, todo, in-progress).
+                help                            -> View command information.
+                exit                            -> Exit.
                 """
         );
     }

@@ -7,7 +7,7 @@ import java.util.List;
 public class TaskView {
     public void showTasks(List<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("No hay tareas.");
+            System.out.println("No tasks yet.");
         } else {
             tasks.forEach(System.out::println);
         }

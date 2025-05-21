@@ -20,7 +20,7 @@ public class TaskTrackerCLI {
         try {
             commandManager.run();
         } catch (Exception e) {
-            taskView.showMessage("Error fatal: " + e.getMessage());
+            taskView.showMessage("Fatal error: " + e.getMessage());
         }
     }
 }
