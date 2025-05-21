@@ -22,6 +22,5 @@ public class TaskTrackerCLI {
         } catch (Exception e) {
             taskView.showMessage("Error fatal: " + e.getMessage());
         }
-
     }
 }
