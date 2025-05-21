@@ -3,11 +3,10 @@ package org.vekzz_dev.tasktracker.cli;
 import org.vekzz_dev.tasktracker.controller.TaskController;
 import org.vekzz_dev.tasktracker.exception.CommandNotFoundException;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.Consumer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CommandManager {
     private final TaskController controller;
@@ -23,12 +22,17 @@ public class CommandManager {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("task-tracker>> ");
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
             if (input.isEmpty()) {
                 System.out.println("No se proporcionó ningún comando");
                 continue;
             }
-            String[] parts = input.split("\\s+");
+
+            String[] parts = parseArgs(input);
+            if (parts.length == 0) {
+                System.out.println("No se pudo analizar el comando");
+                continue;
+            }
             String cmd = parts[0].toLowerCase();
             String[] complement = Arrays.copyOfRange(parts, 1, parts.length);
             try {
@@ -52,6 +56,19 @@ public class CommandManager {
     private void exit() {
         System.out.println("Saliendo...");
         System.exit(0);
+    }
+
+    private static String[] parseArgs(String input) {
+        List<String> tokens = new ArrayList<>();
+        Matcher m = Pattern.compile("\"([^\"]*)\"|(\\S+)").matcher(input);
+        while (m.find()) {
+            if (m.group(1) != null) {
+                tokens.add(m.group(1));
+            } else {
+                tokens.add(m.group(2));
+            }
+        }
+        return tokens.toArray(new String[0]);
     }
 
     private void executeCommand(String command, String[] complement) {
