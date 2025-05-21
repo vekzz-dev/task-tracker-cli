@@ -24,7 +24,7 @@ public class TaskService {
 
     public int add(String description) {
         int id = idRepository.nextId();
-        Status status = Status.IN_PROGRESS;
+        Status status = Status.TODO;
         LocalDateTime createdAndUpdatedAt = LocalDateTime.now();
         Task task = new Task(id, description, status, createdAndUpdatedAt, createdAndUpdatedAt);
         taskList.add(task);
