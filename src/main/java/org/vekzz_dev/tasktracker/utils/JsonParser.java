@@ -4,6 +4,7 @@ import org.vekzz_dev.tasktracker.model.Status;
 import org.vekzz_dev.tasktracker.model.Task;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ public class JsonParser {
     }
 
     private static List<List<String>> deserialize(String jsonString) {
+        if (jsonString == null || jsonString.isBlank()) return new ArrayList<>();
         jsonString = jsonString.substring(1, jsonString.length() - 1);
         String[] jsonObject = jsonString.split("},");
         return Arrays.stream(jsonObject)
