@@ -18,8 +18,8 @@ public class TaskService {
     public TaskService(IdRepository idRepository, TaskRepository taskRepository) {
         this.idRepository = idRepository;
         this.taskRepository = taskRepository;
-        taskList = Optional.ofNullable(taskRepository.findAll())
-                .orElseGet(ArrayList::new);
+        taskList = new ArrayList<>(Optional.ofNullable(taskRepository.findAll())
+                .orElseGet(ArrayList::new));
     }
 
     public int add(String description) {
