@@ -1,6 +1,7 @@
 package org.vekzz_dev.tasktracker.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Task {
     private final int id;
@@ -51,10 +52,11 @@ public class Task {
 
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return id +
-                " - description='" + description + '\'' +
-                ", status=" + status +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt;
+                " -> " + description +
+                " (" + status.getDescription() + ")" +
+                " - creado el: " + createdAt.format(formatter) +
+                " - actualizado el: " + updatedAt.format(formatter) + ".";
     }
 }
