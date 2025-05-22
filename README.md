@@ -6,6 +6,9 @@ efficiently.
 This application was built as a solution for the **Task Tracker** challenge from [roadmap.sh](https://roadmap.sh/projects/task-tracker), with
 an emphasis on clarity, functionality, and persistence of your to-dos.
 
+It's developed without using any external frameworks or libraries, keeping the implementation simple and easy to understand.
+Task persistence is handled through file-based storage, not using any database systems.
+
 
 ## Features
 
@@ -39,6 +42,11 @@ Run the application:
 java -jar target/task-tracker-cli-1.0.jar
 ```
 
+Alternatively, you can download the executable JAR file directly from the latest release assets on GitHub and run it without building:
+
+```bash
+java -jar task-tracker-cli-1.0.jar
+```
 
 ## How to Use It
 
