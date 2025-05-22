@@ -6,7 +6,6 @@ efficiently.
 This application was built as a solution for the **Task Tracker** challenge from [roadmap.sh](https://roadmap.sh/projects/task-tracker), with
 an emphasis on clarity, functionality, and persistence of your to-dos.
 
----
 
 ## Features
 
@@ -18,7 +17,6 @@ an emphasis on clarity, functionality, and persistence of your to-dos.
 * View a help menu with available commands.
 * Data is stored persistently to ensure your tasks are saved across sessions.
 
----
 
 ## How to Run It
 
@@ -41,7 +39,6 @@ Run the application:
 java -jar target/task-tracker-cli-1.0.jar
 ```
 
----
 
 ## How to Use It
 
@@ -135,7 +132,6 @@ Available commands:
 exit
 ```
 
----
 
 ## License
 
