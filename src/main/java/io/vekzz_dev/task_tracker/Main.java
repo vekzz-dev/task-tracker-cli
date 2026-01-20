@@ -12,13 +12,18 @@ import io.vekzz_dev.task_tracker.utils.TaskServiceHolder;
 public class Main {
 
     static void main(String[] args) {
-        FileManager fileManager = new FileManager();
-        Repository<TaskStore> repository = new TaskRepository(JacksonConfig.createMapper(), fileManager);
+        try {
+            FileManager fileManager = new FileManager();
+            Repository<TaskStore> repository = new TaskRepository(JacksonConfig.createMapper(), fileManager);
 
-        TaskService service = new TaskService(repository);
-        TaskServiceHolder.setTaskService(service);
+            TaskService service = new TaskService(repository);
+            TaskServiceHolder.setTaskService(service);
 
-        CommandRouter router = new CommandRouter(args);
-        router.process();
+            CommandRouter router = new CommandRouter(args);
+            router.process();
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 }
