@@ -19,22 +19,24 @@ public class TaskService {
     }
 
     public List<Task> list(String status) {
-        List<Task> tasks = getStore().getTasks();
+        TaskStore store = getStore();
+        List<Task> tasks = store.getTasks();
 
         if (status.equals("all")) return tasks;
 
         Status selectedStatus = Status.fromArgument(status);
 
-         return tasks.stream()
+        return tasks.stream()
                 .filter(task -> task.getStatus().equals(selectedStatus))
                 .toList();
     }
 
     public int add(String description) {
-        List<Task> tasks = getStore().getTasks();
+        TaskStore store = getStore();
+        List<Task> tasks = store.getTasks();
 
         Task task = new Task(
-                getStore().generateNextId(),
+                store.generateNextId(),
                 description,
                 Status.TODO,
                 LocalDateTime.now(),
@@ -42,38 +44,40 @@ public class TaskService {
         );
 
         tasks.add(task);
-        taskRepository.save(getStore());
+        taskRepository.save(store);
         return task.getId();
     }
 
     public void update(int id, String description) {
-        List<Task> tasks = getStore().getTasks();
+        TaskStore store = getStore();
+        List<Task> tasks = store.getTasks();
         Task taskToUpdate = getTaskById(id, tasks);
 
         taskToUpdate.setDescription(description);
         taskToUpdate.setUpdatedAt(LocalDateTime.now());
 
-        taskRepository.save(getStore());
+        taskRepository.save(store);
     }
 
     public void delete(int id) {
-        List<Task> tasks = getStore().getTasks();
+        TaskStore store = getStore();
+        List<Task> tasks = store.getTasks();
         Task taskToDelete = getTaskById(id, tasks);
 
         tasks.remove(taskToDelete);
-        taskRepository.save(getStore());
+        taskRepository.save(store);
     }
 
     public void mark(int id, String status) {
-        List<Task> tasks = getStore().getTasks();
+        TaskStore store = getStore();
+        List<Task> tasks = store.getTasks();
         Task taskToMark = getTaskById(id, tasks);
         Status newStatus = Status.fromArgument(status);
-
 
         taskToMark.setStatus(newStatus);
         taskToMark.setUpdatedAt(LocalDateTime.now());
 
-        taskRepository.save(getStore());
+        taskRepository.save(store);
     }
 
     private TaskStore getStore() {
