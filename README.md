@@ -2,6 +2,8 @@
 
 A simple command-line tool to manage your personal tasks. Organize todos, track progress, and auto-save everything.
 
+This is a challenge from [roadmap.sh](https://roadmap.sh/projects/task-tracker).
+
 ## What You Can Do
 
 - **Create tasks** with descriptions
