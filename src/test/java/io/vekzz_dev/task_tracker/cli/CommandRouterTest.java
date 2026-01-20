@@ -1,7 +1,6 @@
 package io.vekzz_dev.task_tracker.cli;
 
 import io.vekzz_dev.task_tracker.services.TaskService;
-import io.vekzz_dev.task_tracker.utils.TaskServiceHolder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -18,12 +17,11 @@ public class CommandRouterTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        TaskServiceHolder.setTaskService(taskService);
     }
 
     @Test
     void testProcessExecutesAddCommand() {
-        CommandRouter router = new CommandRouter(new String[]{"add", "new task"});
+        CommandRouter router = new CommandRouter(new String[]{"add", "new task"}, taskService);
 
         router.process();
 
@@ -32,7 +30,7 @@ public class CommandRouterTest {
 
     @Test
     void testProcessExecutesUpdateCommand() {
-        CommandRouter router = new CommandRouter(new String[]{"update", "1", "updated task"});
+        CommandRouter router = new CommandRouter(new String[]{"update", "1", "updated task"}, taskService);
 
         router.process();
 
@@ -41,7 +39,7 @@ public class CommandRouterTest {
 
     @Test
     void testProcessExecutesMarkCommand() {
-        CommandRouter router = new CommandRouter(new String[]{"mark", "1", "done"});
+        CommandRouter router = new CommandRouter(new String[]{"mark", "1", "done"}, taskService);
 
         router.process();
 
@@ -50,7 +48,7 @@ public class CommandRouterTest {
 
     @Test
     void testProcessExecutesDeleteCommand() {
-        CommandRouter router = new CommandRouter(new String[]{"delete", "1"});
+        CommandRouter router = new CommandRouter(new String[]{"delete", "1"}, taskService);
 
         router.process();
 
@@ -59,7 +57,7 @@ public class CommandRouterTest {
 
     @Test
     void testProcessExecutesListCommand() {
-        CommandRouter router = new CommandRouter(new String[]{"list", "all"});
+        CommandRouter router = new CommandRouter(new String[]{"list", "all"}, taskService);
 
         router.process();
 
@@ -68,14 +66,14 @@ public class CommandRouterTest {
 
     @Test
     void testProcessExecutesHelpCommand() {
-        CommandRouter router = new CommandRouter(new String[]{"help"});
+        CommandRouter router = new CommandRouter(new String[]{"help"}, taskService);
 
         router.process(); // No taskService call
     }
 
     @Test
     void testProcessThrowsForEmptyArguments() {
-        CommandRouter router = new CommandRouter(new String[]{});
+        CommandRouter router = new CommandRouter(new String[]{}, taskService);
 
         assertThatThrownBy(router::process)
                 .isInstanceOf(IllegalArgumentException.class)
@@ -84,7 +82,7 @@ public class CommandRouterTest {
 
     @Test
     void testProcessThrowsForUnknownCommand() {
-        CommandRouter router = new CommandRouter(new String[]{"unknown"});
+        CommandRouter router = new CommandRouter(new String[]{"unknown"}, taskService);
 
         assertThatThrownBy(router::process)
                 .isInstanceOf(IllegalArgumentException.class)

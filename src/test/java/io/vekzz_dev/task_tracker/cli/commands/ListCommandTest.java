@@ -1,9 +1,8 @@
 package io.vekzz_dev.task_tracker.cli.commands;
 
-import io.vekzz_dev.task_tracker.models.Task;
 import io.vekzz_dev.task_tracker.models.Status;
+import io.vekzz_dev.task_tracker.models.Task;
 import io.vekzz_dev.task_tracker.services.TaskService;
-import io.vekzz_dev.task_tracker.utils.TaskServiceHolder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -12,7 +11,8 @@ import org.mockito.MockitoAnnotations;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class ListCommandTest {
 
@@ -24,7 +24,6 @@ public class ListCommandTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        TaskServiceHolder.setTaskService(taskService);
         task = new Task(1, "Task", Status.TODO, LocalDateTime.now(), LocalDateTime.now());
     }
 
@@ -32,7 +31,7 @@ public class ListCommandTest {
     void testExecuteListsAllTasks() {
         when(taskService.list("all")).thenReturn(List.of(task));
 
-        ListCommand command = new ListCommand(List.of("all"));
+        ListCommand command = new ListCommand(List.of("all"), taskService);
         command.execute();
 
         verify(taskService).list("all");
@@ -42,7 +41,7 @@ public class ListCommandTest {
     void testExecuteListsTasksByStatus() {
         when(taskService.list("todo")).thenReturn(List.of(task));
 
-        ListCommand command = new ListCommand(List.of("todo"));
+        ListCommand command = new ListCommand(List.of("todo"), taskService);
         command.execute();
 
         verify(taskService).list("todo");
@@ -52,13 +51,13 @@ public class ListCommandTest {
     void testExecuteThrowsForTooFewArguments() {
         when(taskService.list("all")).thenReturn(List.of(task));
 
-        ListCommand command = new ListCommand(List.of());
+        ListCommand command = new ListCommand(List.of(), taskService);
         command.execute(); // Defaults to "all"
     }
 
     @Test
     void testExecuteThrowsForInvalidStatus() {
-        ListCommand command = new ListCommand(List.of("invalid"));
+        ListCommand command = new ListCommand(List.of("invalid"), taskService);
         command.execute(); // Handles internally
     }
 
@@ -66,7 +65,7 @@ public class ListCommandTest {
     void testExecuteThrowsForNoTasksFound() {
         when(taskService.list("todo")).thenReturn(List.of());
 
-        ListCommand command = new ListCommand(List.of("todo"));
+        ListCommand command = new ListCommand(List.of("todo"), taskService);
         command.execute(); // Handles "No tasks found"
     }
 }
