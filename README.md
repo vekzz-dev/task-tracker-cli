@@ -24,7 +24,7 @@ Install once and use `tkt` anywhere on your system:
 curl -Ls https://sh.jbang.dev | bash
 
 # Download JAR from releases and install globally
-jbang install --name tkt https://github.com/vekzz-dev/task-tracker-cli/releases/download/v1.0/task-tracker-cli-1.0.jar
+jbang install --name tkt https://github.com/vekzz-dev/task-tracker-cli/releases/download/v1.0.0/task-tracker-cli-1.0.jar
 
 # Now use it anywhere
 tkt
