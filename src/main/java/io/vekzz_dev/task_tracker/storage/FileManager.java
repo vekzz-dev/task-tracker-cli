@@ -28,7 +28,7 @@ public class FileManager {
             if (Files.notExists(filePath)) {
                 Files.writeString(
                         filePath,
-                        "",
+                        "{}",
                         StandardCharsets.UTF_8,
                         StandardOpenOption.CREATE
                 );
