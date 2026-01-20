@@ -17,7 +17,19 @@ public class TaskStore {
         return ++this.lastId;
     }
 
+    public int getLastId() {
+        return lastId;
+    }
+
+    public void setLastId(int lastId) {
+        this.lastId = lastId;
+    }
+
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }
