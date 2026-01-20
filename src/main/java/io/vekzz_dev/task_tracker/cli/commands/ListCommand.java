@@ -4,7 +4,6 @@ import io.vekzz_dev.task_tracker.cli.Command;
 import io.vekzz_dev.task_tracker.models.Task;
 import io.vekzz_dev.task_tracker.output.OutputPrinter;
 import io.vekzz_dev.task_tracker.services.TaskService;
-import io.vekzz_dev.task_tracker.utils.TaskServiceHolder;
 import io.vekzz_dev.task_tracker.validations.ArgumentValidator;
 
 import java.util.List;
@@ -14,9 +13,9 @@ public class ListCommand implements Command {
     private final List<String> arguments;
     private final TaskService taskService;
 
-    public ListCommand(List<String> arguments) {
+    public ListCommand(List<String> arguments, TaskService taskService) {
         this.arguments = arguments;
-        this.taskService = TaskServiceHolder.getTaskService();
+        this.taskService = taskService;
     }
 
     @Override

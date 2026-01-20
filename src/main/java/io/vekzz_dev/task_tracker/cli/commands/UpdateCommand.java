@@ -3,7 +3,6 @@ package io.vekzz_dev.task_tracker.cli.commands;
 import io.vekzz_dev.task_tracker.cli.Command;
 import io.vekzz_dev.task_tracker.output.OutputPrinter;
 import io.vekzz_dev.task_tracker.services.TaskService;
-import io.vekzz_dev.task_tracker.utils.TaskServiceHolder;
 import io.vekzz_dev.task_tracker.validations.ArgumentValidator;
 import io.vekzz_dev.task_tracker.validations.TaskValidator;
 
@@ -14,9 +13,9 @@ public class UpdateCommand implements Command {
     private final List<String> arguments;
     private final TaskService taskService;
 
-    public UpdateCommand(List<String> arguments) {
+    public UpdateCommand(List<String> arguments, TaskService taskService) {
         this.arguments = arguments;
-        taskService = TaskServiceHolder.getTaskService();
+        this.taskService = taskService;
     }
 
     @Override
