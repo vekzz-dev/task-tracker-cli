@@ -21,19 +21,14 @@ public class UpdateCommand implements Command {
 
     @Override
     public void execute() {
-        try {
-            ArgumentValidator.validateArgumentSize(arguments, 2,
-                    "ID and description are the only required.");
+        ArgumentValidator.validateArgumentSize(arguments, 2,
+                "ID and description are the only required.");
 
-            int id = TaskValidator.parseAndValidateId(arguments.getFirst());
-            String description = arguments.get(1);
-            TaskValidator.validateDescription(description);
+        int id = TaskValidator.parseAndValidateId(arguments.getFirst());
+        String description = arguments.get(1);
+        TaskValidator.validateDescription(description);
 
-            taskService.update(id, description);
-            OutputPrinter.printMessage("Task updated successfully with ID: " + id);
-
-        } catch (Exception e) {
-            OutputPrinter.printMessage(e.getMessage());
-        }
+        taskService.update(id, description);
+        OutputPrinter.printMessage("Task updated successfully with ID: " + id);
     }
 }

@@ -21,20 +21,15 @@ public class ListCommand implements Command {
 
     @Override
     public void execute() {
-        try {
-            ArgumentValidator.validateArgumentSize(arguments, 1,
-                    "A status is the only required argument");
+        ArgumentValidator.validateArgumentSize(arguments, 1,
+                "A status is the only required argument");
 
-            String status = arguments.isEmpty() ? "all" : arguments.getFirst();
+        String status = arguments.isEmpty() ? "all" : arguments.getFirst();
 
-            List<Task> tasks = taskService.list(status);
+        List<Task> tasks = taskService.list(status);
 
-            if (tasks.isEmpty()) throw new IllegalArgumentException("No tasks found");
+        if (tasks.isEmpty()) throw new IllegalArgumentException("No tasks found");
 
-            OutputPrinter.printTable(tasks);
-
-        } catch (Exception e) {
-            OutputPrinter.printMessage(e.getMessage());
-        }
+        OutputPrinter.printTable(tasks);
     }
 }

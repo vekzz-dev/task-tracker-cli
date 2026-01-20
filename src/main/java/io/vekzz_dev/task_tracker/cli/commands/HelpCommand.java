@@ -7,21 +7,16 @@ public class HelpCommand implements Command {
 
     @Override
     public void execute() {
-        try {
-            OutputPrinter.printMessage("""
-                    Available commands:
-                    add <description>               -> Add new task.
-                    update <id> <new description>   -> Update existing task.
-                    delete <id>                     -> Delete task.
-                    list <status>                   -> List all tasks or by status (done, todo, in-progress).
-                    mark <id> <status>              -> Mark task (done, todo, in-progress).
-                    help                            -> View command information.
-                    exit                            -> Exit.
-                    """
-            );
-
-        } catch (Exception e) {
-            OutputPrinter.printMessage(e.getMessage());
-        }
+        OutputPrinter.printMessage("""
+                Available commands:
+                add <description>               -> Add new task.
+                update <id> <new description>   -> Update existing task.
+                delete <id>                     -> Delete task.
+                list <status>                   -> List all tasks or by status (done, todo, in-progress).
+                mark <id> <status>              -> Mark task (done, todo, in-progress).
+                help                            -> View command information.
+                exit                            -> Exit.
+                """
+        );
     }
 }

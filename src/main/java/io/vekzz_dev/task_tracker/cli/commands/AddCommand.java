@@ -21,18 +21,13 @@ public class AddCommand implements Command {
 
     @Override
     public void execute() {
-        try {
-            ArgumentValidator.validateArgumentSize(arguments, 1,
-                    "A description is the only required.");
+        ArgumentValidator.validateArgumentSize(arguments, 1,
+                "A description is the only required.");
 
-            String description = arguments.getFirst();
-            TaskValidator.validateDescription(description);
+        String description = arguments.getFirst();
+        TaskValidator.validateDescription(description);
 
-            int id = taskService.add(description);
-            OutputPrinter.printMessage("Task added successfully. ID: " + id);
-
-        } catch (Exception e) {
-            OutputPrinter.printMessage(e.getMessage());
-        }
+        int id = taskService.add(description);
+        OutputPrinter.printMessage("Task added successfully. ID: " + id);
     }
 }

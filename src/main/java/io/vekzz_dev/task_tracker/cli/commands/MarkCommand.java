@@ -21,19 +21,14 @@ public class MarkCommand implements Command {
 
     @Override
     public void execute() {
-        try {
-            ArgumentValidator.validateArgumentSize(arguments, 2,
-                    "ID and status are the only required.");
+        ArgumentValidator.validateArgumentSize(arguments, 2,
+                "ID and status are the only required.");
 
-            int id = TaskValidator.parseAndValidateId(arguments.getFirst());
-            String status = arguments.get(1);
-            TaskValidator.validateDescription(status);
+        int id = TaskValidator.parseAndValidateId(arguments.getFirst());
+        String status = arguments.get(1);
+        TaskValidator.validateDescription(status);
 
-            taskService.mark(id, status);
-            OutputPrinter.printMessage("Task marked successfully with ID: " + id);
-
-        } catch (Exception e) {
-            OutputPrinter.printMessage(e.getMessage());
-        }
+        taskService.mark(id, status);
+        OutputPrinter.printMessage("Task marked successfully with ID: " + id);
     }
 }

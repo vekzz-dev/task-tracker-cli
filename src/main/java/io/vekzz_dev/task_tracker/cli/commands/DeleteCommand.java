@@ -21,17 +21,12 @@ public class DeleteCommand implements Command {
 
     @Override
     public void execute() {
-        try {
-            ArgumentValidator.validateArgumentSize(arguments, 1,
-                    "ID is the only required.");
+        ArgumentValidator.validateArgumentSize(arguments, 1,
+                "ID is the only required.");
 
-            int id = TaskValidator.parseAndValidateId(arguments.getFirst());
+        int id = TaskValidator.parseAndValidateId(arguments.getFirst());
 
-            taskService.delete(id);
-            OutputPrinter.printMessage("Task deleted successfully with ID: " + id);
-
-        } catch (Exception e) {
-            OutputPrinter.printMessage(e.getMessage());
-        }
+        taskService.delete(id);
+        OutputPrinter.printMessage("Task deleted successfully with ID: " + id);
     }
 }
