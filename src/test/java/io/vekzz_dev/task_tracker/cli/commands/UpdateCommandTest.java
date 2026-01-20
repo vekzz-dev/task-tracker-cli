@@ -32,25 +32,33 @@ public class UpdateCommandTest {
     @Test
     void testExecuteThrowsForTooFewArguments() {
         UpdateCommand command = new UpdateCommand(List.of("1"), taskService);
-        command.execute(); // Handles internally
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Expected 2 argument(s) but received 1 argument(s). ID and description are the only required.");
     }
 
     @Test
     void testExecuteThrowsForTooManyArguments() {
         UpdateCommand command = new UpdateCommand(List.of("1", "desc", "extra"), taskService);
-        command.execute(); // Handles internally
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Expected 2 argument(s) but received 3 argument(s). ID and description are the only required.");
     }
 
     @Test
     void testExecuteThrowsForInvalidId() {
         UpdateCommand command = new UpdateCommand(List.of("abc", "desc"), taskService);
-        command.execute(); // Handles internally
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Task id must be a valid integer");
     }
 
     @Test
     void testExecuteThrowsForInvalidDescription() {
         UpdateCommand command = new UpdateCommand(List.of("1", ""), taskService);
-        command.execute(); // Handles internally
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Task description must not be blank");
     }
 
     @Test
@@ -58,7 +66,9 @@ public class UpdateCommandTest {
         doThrow(new RuntimeException("Service error")).when(taskService).update(1, "desc");
 
         UpdateCommand command = new UpdateCommand(List.of("1", "desc"), taskService);
-        command.execute();
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage("Service error");
 
         verify(taskService).update(1, "desc");
     }

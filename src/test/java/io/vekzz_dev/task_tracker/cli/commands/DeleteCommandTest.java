@@ -32,19 +32,25 @@ public class DeleteCommandTest {
     @Test
     void testExecuteThrowsForTooFewArguments() {
         DeleteCommand command = new DeleteCommand(List.of(), taskService);
-        command.execute(); // Handles internally
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Expected 1 argument(s) but received 0 argument(s). ID is the only required.");
     }
 
     @Test
     void testExecuteThrowsForTooManyArguments() {
         DeleteCommand command = new DeleteCommand(List.of("1", "2"), taskService);
-        command.execute(); // Handles internally
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Expected 1 argument(s) but received 2 argument(s). ID is the only required.");
     }
 
     @Test
     void testExecuteThrowsForInvalidId() {
         DeleteCommand command = new DeleteCommand(List.of("abc"), taskService);
-        command.execute(); // Handles internally
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Task id must be a valid integer");
     }
 
     @Test
@@ -52,7 +58,9 @@ public class DeleteCommandTest {
         doThrow(new RuntimeException("Service error")).when(taskService).delete(1);
 
         DeleteCommand command = new DeleteCommand(List.of("1"), taskService);
-        command.execute();
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage("Service error");
 
         verify(taskService).delete(1);
     }

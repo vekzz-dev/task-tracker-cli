@@ -7,7 +7,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
+
+import java.util.List;
 
 public class CommandRouterTest {
 
@@ -57,11 +60,13 @@ public class CommandRouterTest {
 
     @Test
     void testProcessExecutesListCommand() {
+        when(taskService.list("all")).thenReturn(List.of());
+
         CommandRouter router = new CommandRouter(new String[]{"list", "all"}, taskService);
 
-        router.process();
-
-        verify(taskService).list("all");
+        assertThatThrownBy(router::process)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No tasks found");
     }
 
     @Test

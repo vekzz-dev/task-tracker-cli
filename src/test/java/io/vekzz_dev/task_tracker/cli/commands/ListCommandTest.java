@@ -52,13 +52,17 @@ public class ListCommandTest {
         when(taskService.list("all")).thenReturn(List.of(task));
 
         ListCommand command = new ListCommand(List.of(), taskService);
-        command.execute(); // Defaults to "all"
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Expected 1 argument(s) but received 0 argument(s). A status is the only required argument");
     }
 
     @Test
     void testExecuteThrowsForInvalidStatus() {
         ListCommand command = new ListCommand(List.of("invalid"), taskService);
-        command.execute(); // Handles internally
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No tasks found");
     }
 
     @Test
@@ -66,6 +70,8 @@ public class ListCommandTest {
         when(taskService.list("todo")).thenReturn(List.of());
 
         ListCommand command = new ListCommand(List.of("todo"), taskService);
-        command.execute(); // Handles "No tasks found"
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No tasks found");
     }
 }

@@ -32,25 +32,33 @@ public class MarkCommandTest {
     @Test
     void testExecuteThrowsForTooFewArguments() {
         MarkCommand command = new MarkCommand(List.of("1"), taskService);
-        command.execute(); // Handles internally
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Expected 2 argument(s) but received 1 argument(s). ID and status are the only required.");
     }
 
     @Test
     void testExecuteThrowsForTooManyArguments() {
         MarkCommand command = new MarkCommand(List.of("1", "done", "extra"), taskService);
-        command.execute(); // Handles internally
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Expected 2 argument(s) but received 3 argument(s). ID and status are the only required.");
     }
 
     @Test
     void testExecuteThrowsForInvalidId() {
         MarkCommand command = new MarkCommand(List.of("abc", "done"), taskService);
-        command.execute(); // Handles internally
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Task id must be a valid integer");
     }
 
     @Test
     void testExecuteThrowsForInvalidStatus() {
         MarkCommand command = new MarkCommand(List.of("1", ""), taskService);
-        command.execute(); // Handles internally
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Task description must not be blank");
     }
 
     @Test
@@ -58,7 +66,9 @@ public class MarkCommandTest {
         doThrow(new RuntimeException("Service error")).when(taskService).mark(1, "done");
 
         MarkCommand command = new MarkCommand(List.of("1", "done"), taskService);
-        command.execute();
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage("Service error");
 
         verify(taskService).mark(1, "done");
     }

@@ -8,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -34,19 +35,25 @@ public class AddCommandTest {
     @Test
     void testExecuteThrowsForTooFewArguments() {
         AddCommand command = new AddCommand(List.of(), taskService);
-        command.execute(); // Should handle internally, no exception thrown externally
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Expected 1 argument(s) but received 0 argument(s). A description is the only required.");
     }
 
     @Test
     void testExecuteThrowsForTooManyArguments() {
         AddCommand command = new AddCommand(List.of("desc1", "desc2"), taskService);
-        command.execute(); // Should handle internally
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Expected 1 argument(s) but received 2 argument(s). A description is the only required.");
     }
 
     @Test
     void testExecuteThrowsForInvalidDescription() {
         AddCommand command = new AddCommand(List.of(""), taskService);
-        command.execute(); // Should handle internally
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Task description must not be blank");
     }
 
     @Test
@@ -54,7 +61,9 @@ public class AddCommandTest {
         when(taskService.add("task")).thenThrow(new RuntimeException("Service error"));
 
         AddCommand command = new AddCommand(List.of("task"), taskService);
-        command.execute();
+        assertThatThrownBy(command::execute)
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage("Service error");
 
         verify(taskService).add("task");
     }
